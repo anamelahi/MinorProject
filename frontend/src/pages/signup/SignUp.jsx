@@ -7,7 +7,6 @@ import GenderCheckbox from './Gender';
 //   )
 // }
 
-// export default SignUp
 
 const SignUp = () => {
 	return (
