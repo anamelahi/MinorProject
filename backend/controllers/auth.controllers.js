@@ -33,7 +33,7 @@ export const signup = async(req,res) =>{
         });
 
         if(newUser){
-            // Generating JWT tokens 
+            // Generating JWT tokens
             generateTokenAndSetCookie(newUser._id,res);
             await newUser.save(); //to save it to db
 
@@ -43,12 +43,14 @@ export const signup = async(req,res) =>{
                 username: newUser.username,
                 profilePicture: newUser.profilePicture
             });
+
         }else{
             res.status(400).json({error:"Check the user data"})
         }
     } catch (error) {
         console.log("Error in SignUp", error.message);
         res.status(500).json({error:"Server error"});
+        return false;
     }
 }
 
