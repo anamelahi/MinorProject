@@ -11,19 +11,23 @@ function App() {
   console.log(authUser);
   return (
     <div className="p-4 h-screen flex items-center justify-center">
-      <Routes>
-        {authUser ? (
-          <>
-            <Route path="/" element={<Home />} />
-          </>
-        ) : (
-          <>
-            <Route path="/" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-          </>
-        )}
-      </Routes>
-    </div>
+
+    <Routes>
+      {authUser ? (
+        <>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Navigate to="/" />} />
+        </>
+      ) : (
+        <>
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </>
+      )}
+    </Routes>
+  </div>
+
   );
 }
 

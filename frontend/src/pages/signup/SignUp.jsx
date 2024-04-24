@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GenderCheckbox from './GenderCheckbox';
-import { Link,useNavigate} from 'react-router-dom'; // Import 'navigate' from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup';
+import useAuth from '../../context/AuthContext'; // Import useAuth from AuthContext
 
 function SignUp() {
-	const navigate = useNavigate();
+    const { authUser } = useAuth(); // Use the hook without passing any arguments
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         fullName: '',
         username: '',
@@ -15,17 +17,23 @@ function SignUp() {
 
     const { loading, signup } = useSignup();
 
+    useEffect(() => {
+        if (authUser) {
+            navigate('/'); // Navigate to the home page if authUser changes
+        }
+    }, [authUser, navigate]);
+
     const handleCheckboxChange = (gender) => {
         setInputs({ ...inputs, gender });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
-        const success = await signup(inputs);
-        if (success) {
-            navigate('/');
-        }
+        await signup(inputs); // Wait for signup to complete
+
+        // No need to check authUser here, useEffect will handle navigation
     };
+
 
     return (
         <div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
