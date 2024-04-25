@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import GenderCheckbox from './GenderCheckbox';
 import { Link, useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup';
-import useAuth from '../../context/AuthContext'; // Import useAuth from AuthContext
+import { useAuthContext } from '../../context/AuthContext';
 
 function SignUp() {
-    const { authUser } = useAuth(); // Use the hook without passing any arguments
+    const { authUser } = useAuthContext(); // Use the hook without passing any arguments // Use the hook without passing any arguments
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         fullName: '',
